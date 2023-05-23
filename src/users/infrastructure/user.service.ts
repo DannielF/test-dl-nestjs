@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../domain/user.entity';
 import { DataSource, DeleteResult, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateUserDto } from '../application/createUser.dto';
+import { UpdateUserDto } from '../application/updateUser.dto';
 
 @Injectable()
 export class UserService {
@@ -33,7 +35,7 @@ export class UserService {
     return this.userRepository.findOneBy({ email: email });
   }
 
-  async createUser(user: User): Promise<void> {
+  async createUser(user: CreateUserDto): Promise<void> {
     const queryRunner = this.datasource.createQueryRunner();
 
     await queryRunner.connect();
@@ -55,7 +57,7 @@ export class UserService {
     });
   }
 
-  async updateUser(id: number, user: User) {
+  async updateUser(id: number, user: UpdateUserDto) {
     return this.userRepository.update(id, user);
   }
 
