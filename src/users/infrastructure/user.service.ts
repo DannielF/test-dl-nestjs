@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from '../domain/user.entity';
-import { DataSource, DeleteResult, Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from '../application/createUser.dto';
 import { UpdateUserDto } from '../application/updateUser.dto';
@@ -14,25 +14,29 @@ export class UserService {
   ) {}
 
   async getAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return await this.userRepository.find();
   }
 
   async getUserById(id: number): Promise<User> {
-    return this.userRepository.findOneBy({ id: id });
+    const user = await this.userRepository.findOneBy({ id: id });
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    return user;
   }
 
   async getUserByTypeAndNumberDocument(
     type: string,
     number: string,
   ): Promise<User> {
-    return this.userRepository.findOneBy({
+    return await this.userRepository.findOneBy({
       id_type: type,
       id_number: number,
     });
   }
 
   async getUserByEmail(email: string): Promise<User> {
-    return this.userRepository.findOneBy({ email: email });
+    return await this.userRepository.findOneBy({ email: email });
   }
 
   async createUser(user: CreateUserDto): Promise<void> {
@@ -51,17 +55,25 @@ export class UserService {
   }
 
   async addRolToUser(id: number, rol: string): Promise<User> {
-    return this.userRepository.findOneBy({ id: id }).then((user) => {
+    return await this.userRepository.findOneBy({ id: id }).then((user) => {
       user.rol = rol;
       return this.userRepository.save(user);
     });
   }
 
   async updateUser(id: number, user: UpdateUserDto) {
-    return this.userRepository.update(id, user);
+    const userFound = await this.userRepository.preload({
+      id: id,
+      ...user,
+    });
+    if (!userFound) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+    return this.userRepository.save(user);
   }
 
-  async deleteUser(id: number): Promise<DeleteResult> {
-    return this.userRepository.delete(id);
+  async deleteUser(id: number): Promise<User> {
+    const user = await this.getUserById(id);
+    return await this.userRepository.remove(user);
   }
 }
