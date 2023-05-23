@@ -12,7 +12,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: configService.get<string>('DB_PASSWORD'),
   database: configService.get<string>('DB_NAME'),
   entities: [User],
-  migrations: ['../migrations/*{.ts,.js}'],
+  migrations: ['migrations/*{.ts,.js}'],
   logging: true,
   autoLoadEntities: true,
   synchronize: false,

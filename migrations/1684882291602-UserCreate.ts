@@ -15,7 +15,7 @@ export class UserCreate1684882291602 implements MigrationInterface {
             rol VARCHAR(255),
             state BOOLEAN NOT NULL,
             PRIMARY KEY (id)
-            ) ENGINE=InnoDB`,
+            )`,
     );
   }
 
