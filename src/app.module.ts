@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { EnvConfig as configuration } from './config/env.config';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './users/domain/user.entity';
 
 @Module({
   imports: [
@@ -15,11 +16,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: parseInt(process.env.DB_PORT, 10),
+      port: 3306,
       username: 'root',
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      password: 'test123',
+      database: 'test-dl',
+      entities: [User],
+      migrations: [],
+      logging: true,
     }),
     UsersModule,
   ],
