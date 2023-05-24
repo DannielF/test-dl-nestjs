@@ -46,7 +46,7 @@ async function bootstrap() {
     origin: ['http://localhost:3000', 'http://localhost:4200'],
   });
 
-  const document = await SwaggerModule.createDocument(app, config, options);
+  const document = SwaggerModule.createDocument(app, config, options);
   SwaggerModule.setup('api', app, document);
 
   app.enableVersioning({

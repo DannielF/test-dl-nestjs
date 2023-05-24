@@ -8,7 +8,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: 'localhost',
   port: configService.get<number>('db_port'),
-  username: 'root',
+  username: configService.get<string>('db_username'),
   password: configService.get<string>('db_password'),
   database: configService.get<string>('db_name'),
   entities: [User],
