@@ -7,10 +7,10 @@ const configService = new ConfigService();
 export const typeOrmConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: 'localhost',
-  port: configService.get<number>('DB_PORT'),
+  port: configService.get<number>('db_port'),
   username: 'root',
-  password: configService.get<string>('DB_PASSWORD'),
-  database: configService.get<string>('DB_NAME'),
+  password: configService.get<string>('db_password'),
+  database: configService.get<string>('db_name'),
   entities: [User],
   migrations: ['migrations/*{.ts,.js}'],
   logging: true,
