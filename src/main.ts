@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
-import { config, options } from './config/swagger.config';
+import { config, options, swaggerOptions } from './config/swagger.config';
 import { SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
@@ -29,6 +29,7 @@ async function bootstrap() {
             `'self'`,
             'data:',
             'apollo-server-landing-page.cdn.apollographql.com',
+            'validator.swagger.io',
           ],
           scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
           manifestSrc: [
@@ -46,7 +47,7 @@ async function bootstrap() {
   });
 
   const document = SwaggerModule.createDocument(app, config, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, swaggerOptions);
 
   app.enableVersioning({
     type: VersioningType.URI,

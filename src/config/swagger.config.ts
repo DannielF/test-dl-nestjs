@@ -1,4 +1,8 @@
-import { DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
+import {
+  DocumentBuilder,
+  SwaggerCustomOptions,
+  SwaggerDocumentOptions,
+} from '@nestjs/swagger';
 
 export const config = new DocumentBuilder()
   .setTitle('App test-dl')
@@ -9,4 +13,8 @@ export const config = new DocumentBuilder()
 
 export const options: SwaggerDocumentOptions = {
   operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
+};
+
+export const swaggerOptions: SwaggerCustomOptions = {
+  url: 'http://localhost:3000/api/v1',
 };

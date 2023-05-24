@@ -26,7 +26,7 @@ export class User {
   @Column({ name: 'address', type: 'varchar', length: 20 })
   address: string;
 
-  @Column({ name: 'rol', type: 'varchar', length: 20 })
+  @Column({ name: 'rol', type: 'varchar', length: 20, nullable: true })
   rol?: string;
 
   @Column({ name: 'state', type: 'boolean' })
