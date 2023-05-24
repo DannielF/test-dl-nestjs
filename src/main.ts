@@ -52,7 +52,11 @@ async function bootstrap(): Promise<void> {
   );
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:4200'],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:4200',
+      'http://localhost:3001',
+    ],
   });
 
   const document = SwaggerModule.createDocument(app, config, options);
