@@ -9,7 +9,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserService } from '../domain/user.service';
 import { CreateUserDto } from '../application/createUser.dto';
 import { UpdateUserDto } from '../application/updateUser.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';

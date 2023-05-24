@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { User } from '../domain/user.entity';
-import { DataSource, Repository } from 'typeorm';
+import { User } from './user.entity';
+import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from '../application/createUser.dto';
 import { UpdateUserDto } from '../application/updateUser.dto';
@@ -9,8 +9,7 @@ import { UpdateUserDto } from '../application/updateUser.dto';
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-    private readonly datasource: DataSource,
+    private userRepository: Repository<User>,
   ) {}
 
   async getAll(): Promise<User[]> {
@@ -39,19 +38,8 @@ export class UserService {
     return await this.userRepository.findOneBy({ email: email });
   }
 
-  async createUser(user: CreateUserDto): Promise<void> {
-    const queryRunner = this.datasource.createQueryRunner();
-
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      await queryRunner.manager.save(user);
-      await queryRunner.commitTransaction();
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
-    } finally {
-      await queryRunner.release();
-    }
+  async createUser(user: CreateUserDto): Promise<User> {
+    return await this.userRepository.save(user);
   }
 
   async addRolToUser(id: number, rol: string): Promise<User> {
