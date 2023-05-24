@@ -14,7 +14,9 @@ import { SwaggerModule } from '@nestjs/swagger';
  */
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -55,10 +57,6 @@ async function bootstrap(): Promise<void> {
 
   const document = SwaggerModule.createDocument(app, config, options);
   SwaggerModule.setup('api', app, document, swaggerOptions);
-
-  app.enableVersioning({
-    type: VersioningType.URI,
-  });
 
   await app.listen(3000);
 }
