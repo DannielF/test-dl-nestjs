@@ -25,6 +25,13 @@ import {
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 
+/**
+ * User controller
+ * @class UserController
+ * @requires UserService
+ * @author dannielf
+ * @version 0.0.1
+ */
 @Controller({ path: 'users', version: '1' })
 @ApiTags('users')
 export class UserController {

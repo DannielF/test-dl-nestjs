@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Environment configuration file.
+ * @module config/env.config
+ * @version 0.0.1
+ */
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 3000,
   database: {

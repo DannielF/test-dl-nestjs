@@ -5,6 +5,16 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmAsyncConfig } from './config/type-orm.config';
 
+/**
+ * App module
+ * @class AppModule
+ * @requires ConfigModule
+ * @requires TypeOrmModule
+ * @requires UsersModule
+ * @requires typeOrmAsyncConfig
+ * @requires configuration
+ * @version 0.0.1
+ */
 @Module({
   imports: [
     ConfigModule.forRoot({

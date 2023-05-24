@@ -1,6 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsEmail, IsIn, IsOptional } from 'class-validator';
 
+/**
+ * Create user dto
+ * @property {string} id_type
+ * @property {string} id_number
+ * @property {string} name
+ * @property {string} lastName
+ * @property {string} email
+ * @property {string} phone
+ * @property {string} address
+ * @property {string} rol
+ * @property {boolean} state
+ * @class CreateUserDto
+ * @version 0.0.1
+ */
 export class CreateUserDto {
   @IsNotEmpty()
   @ApiProperty({ enum: ['CC', 'CE', 'TI', 'PPN', 'NIT'] })

@@ -5,6 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from '../application/createUser.dto';
 import { UpdateUserDto } from '../application/updateUser.dto';
 
+/**
+ * User service
+ * @class UserService
+ * @requires User
+ * @requires Repository
+ * @author dannielf
+ * @version 0.0.1
+ */
 @Injectable()
 export class UserService {
   constructor(

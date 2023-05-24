@@ -5,7 +5,14 @@ import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { config, options, swaggerOptions } from './config/swagger.config';
 import { SwaggerModule } from '@nestjs/swagger';
 
-async function bootstrap() {
+/**
+ * Bootstrap function
+ * @function bootstrap
+ * @async
+ * @returns {Promise<void>}
+ * @version 0.0.1
+ */
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
 

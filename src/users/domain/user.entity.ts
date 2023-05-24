@@ -1,5 +1,19 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+/**
+ * User entity
+ * @class User
+ * @property {number} id - primary key
+ * @property {string} id_type - CC, CE, TI, PPN, NIT
+ * @property {string} id_number - user id number
+ * @property {string} name - user name
+ * @property {string} lastName - user last name
+ * @property {string} email - user email
+ * @property {string} phone - user phone
+ * @property {string} address - user address
+ * @property {boolean} state - user state
+ * @enum {string} rol - admin, accountant, sofware_consultant
+ */
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
