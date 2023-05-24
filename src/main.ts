@@ -1,10 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { config, options } from './config/swagger.config';
+import { SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const logger = new Logger('bootstrap');
   app.setGlobalPrefix('api');
 
   app.useGlobalPipes(
@@ -38,12 +41,19 @@ async function bootstrap() {
       },
     }),
   );
+
   app.enableCors({
     origin: ['http://localhost:3000', 'http://localhost:4200'],
   });
+
+  const document = await SwaggerModule.createDocument(app, config, options);
+  SwaggerModule.setup('api', app, document);
+
   app.enableVersioning({
     type: VersioningType.URI,
   });
+
   await app.listen(3000);
+  logger.log(`Application listening on port ${process.env.PORT}`);
 }
 bootstrap();
